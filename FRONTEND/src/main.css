@@ -1,0 +1,313 @@
+/* RESET */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(darkblue, rgb(0, 0, 0));
+  color: white;
+  min-height: 100vh;
+}
+
+/* PUBLIC PAGE */
+
+.public {
+  padding: 15px;
+}
+
+.public header {
+  padding-bottom: 15px;
+  border-bottom: 3px solid white;
+}
+
+.public__main {
+  padding-top: 15px;
+}
+
+.public__main p {
+  margin-bottom: 20px;
+}
+
+.public__addr a {
+  color: white;
+  text-decoration: none;
+}
+
+.public footer {
+  border-top: 3px solid white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: absolute;
+  bottom: 0;
+  width: calc(100vw - 30px);
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: rgba(245, 245, 245, 0.797);
+  text-decoration: none;
+}
+
+/* DASH HEADER */
+
+.dash-header {
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid rgb(172, 172, 172);
+}
+
+.dash-header .link {
+  color: white;
+  text-decoration: none;
+}
+
+.dash-header__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash-header__nav .icon-button {
+  font-size: 2.5rem;
+  color: white;
+}
+
+/* DASH CONTAINER */
+
+.dash-container {
+  padding: 10px;
+  padding-left: 10px;
+  padding-bottom: 35px;
+}
+
+/* DASH FOOTER */
+
+.dash-footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  width: 100vw;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border-top: 2px solid rgb(172, 172, 172);
+  background-color: black;
+}
+
+.dash-footer p,
+button {
+  margin-right: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.dash-footer svg {
+  font-size: 1rem;
+  background-color: transparent;
+  color: white;
+}
+
+/* WELCOME PAGE */
+
+.welcome h1 {
+  margin-top: 10px;
+}
+
+.welcome .link {
+  color: white;
+  text-decoration: none;
+}
+
+.welcome .link__p {
+  margin-top: 10px;
+}
+
+/* TABLE */
+
+.table {
+  width: 100%;
+}
+
+.table__th,
+.table__cell {
+  background-color: white;
+  color: black;
+  padding: 15px;
+  border: 1px solid black;
+  text-align: left;
+}
+
+.note__status--completed {
+  color: rgb(0, 201, 0);
+}
+
+.note__status--open {
+  color: red;
+  font-weight: bold;
+}
+
+.table__button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  padding-left: calc(50% - 10px);
+}
+
+/*  USER PAGE */
+
+.form__title-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form__title-row svg {
+  font-size: 2.5rem;
+  color: white;
+}
+
+.form__title-row h2 {
+  margin-top: 5px;
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form__input {
+  margin-bottom: 10px;
+  height: 35px;
+  width: 100%;
+  border-radius: 10px;
+  padding-left: 5px;
+  font-size: 1rem;
+}
+
+.form {
+  max-width: 700px;
+}
+
+.form__edit__details {
+  display: flex;
+  flex-direction: row;
+}
+
+.form__edit__details div {
+  padding: 10px;
+}
+
+.form__edit__details section {
+  padding: 10px;
+}
+
+.form__select {
+  height: fit-content;
+  margin-left: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+#user-active {
+  margin-bottom: 15px;
+  margin-left: 5px;
+}
+
+/* NOTE PAGE */
+
+.form__input__text {
+  height: 100px;
+}
+
+select {
+  width: 70px;
+  height: 25px;
+}
+
+#note-completed {
+  margin-bottom: 15px;
+  margin-left: 5px;
+}
+
+.form__edit__details section:last-child label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* LOGIN PAGE */
+
+label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  margin-left: 5px;
+}
+
+.form__submit-button {
+  background-color: whitesmoke;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+
+.form__submit-button:hover {
+  background-color: rgba(245, 245, 245, 0.822);
+}
+
+.login__section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.home__button {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.home__button:hover {
+  color: rgba(245, 245, 245, 0.797);
+  text-decoration: none;
+}
+
+.form__checkbox {
+  height: 15px;
+  width: 15px;
+  margin-right: 10px;
+}
+
+.form__persist {
+  display: flex;
+  justify-content: center;
+}
+
+/* OTHER */
+
+.icon-button svg:hover {
+  color: rgba(245, 245, 245, 0.842);
+  cursor: pointer;
+}
+
+.table__button svg:hover {
+  color: gray;
+}
+
+.errmsg {
+  padding: 5px;
+  background-color: white;
+  color: red;
+}
+
+.errmsg :any-link {
+  color: red;
+}
