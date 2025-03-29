@@ -1,13 +1,14 @@
-const User = require("../models/User");
-const Note = require("../models/Note");
-const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
+import User from "../models/User.js";
+import Note from "../models/Note.js";
+import asyncHandler from "express-async-handler";
+import bcrypt from "bcrypt";
+import { Request, Response } from "express";
 
 // @desc Get all users
 // @route GET /users
 // @access Private
 
-const getAllUsers = asyncHandler(async (req, res) => {
+const getAllUsers = asyncHandler(async (req: Request, res: Response): Promise<any> => {
   const users = await User.find().select("-password").lean();
   if (!users?.length) {
     return res.status(400).json({ message: "No users found" });
@@ -19,7 +20,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @route POST /users
 // @access Private
 
-const createNewUser = asyncHandler(async (req, res) => {
+const createNewUser = asyncHandler(async (req: Request, res: Response): Promise<any> => {
   const { username, password, roles } = req.body;
 
   // Confirm data
@@ -60,7 +61,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 
-const updateUser = asyncHandler(async (req, res) => {
+const updateUser = asyncHandler(async (req: Request, res: Response): Promise<any> => {
   const { id, username, roles, active, password } = req.body;
 
   // Confirm data
@@ -108,7 +109,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteUser = asyncHandler(async (req: Request, res: Response): Promise<any> => {
   const { id } = req.body;
 
   if (!id) {
@@ -133,4 +134,4 @@ const deleteUser = asyncHandler(async (req, res) => {
   res.json(replay);
 });
 
-module.exports = { getAllUsers, createNewUser, updateUser, deleteUser };
+export default { getAllUsers, createNewUser, updateUser, deleteUser };

@@ -32,9 +32,8 @@ const NotesList = () => {
     let filteredIds;
     if (isManager || isAdmin) {
       filteredIds = [...ids];
-    } else {
-      console.log(username)
-      filteredIds = ids.filter((noteId) => entities[noteId].user === username);
+    } else {    
+      filteredIds = ids.filter((noteId) => entities[noteId].user.username === username);
     }
 
     const tableContent =

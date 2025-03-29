@@ -1,13 +1,23 @@
-const Note = require("../models/Note");
-const asyncHandler = require("express-async-handler");
+import Note from "../models/Note.js";
+import ROLES_LIST from "../config/roles_list.js";
+import asyncHandler from "express-async-handler";
+import { Request, Response } from "express";
 
 // @desc Get all notes
 // @route GET /notes
 // @access Private
 
-const getAllNotes = asyncHandler(async (req, res) => {
-  // Get all notes from MongoDB
-  const notes = await Note.find().lean();
+const getAllNotes = asyncHandler(async (req: Request, res: Response): Promise<any> => {
+
+  const allowedRoles = [ROLES_LIST.Admin, ROLES_LIST.Manager];
+  const userHasAllowedRole = req.roles.some(role => allowedRoles.includes(role));
+  let notes = null;
+
+  if (userHasAllowedRole) {
+    notes = await Note.find().populate("user", "username").lean();
+  } else {
+    notes = await Note.find({ "user": req.id }).populate("user", "username").lean();
+  }
 
   // If no notes
   if (!notes?.length) {
@@ -20,7 +30,7 @@ const getAllNotes = asyncHandler(async (req, res) => {
 // @route POST /notes
 // @access Private
 
-const createNewNote = asyncHandler(async (req, res) => {
+const createNote = asyncHandler(async (req: Request, res: Response): Promise<any> => {
   const { user, title, text } = req.body;
 
   // Confirm data
@@ -43,7 +53,7 @@ const createNewNote = asyncHandler(async (req, res) => {
 // @route PATCH /notes
 // @access Private
 
-const updateNote = asyncHandler(async (req, res) => {
+const updateNote = asyncHandler(async (req: Request, res: Response): Promise<any> => {
   const { id, user, title, text, completed } = req.body;
 
   // Confirm data
@@ -55,6 +65,13 @@ const updateNote = asyncHandler(async (req, res) => {
 
   if (!note) {
     return res.status(400).json({ message: "Note not found" });
+  }
+
+  const allowedRoles = [ROLES_LIST.Admin, ROLES_LIST.Manager];
+  const userHasAllowedRole = req.roles.some(role => allowedRoles.includes(role));
+
+  if (!userHasAllowedRole && note.user._id.toString() != req.id) {
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
   note.user = user;
@@ -71,7 +88,7 @@ const updateNote = asyncHandler(async (req, res) => {
 // @route DELETE /notes
 // @access Private
 
-const deleteNote = asyncHandler(async (req, res) => {
+const deleteNote = asyncHandler(async (req: Request, res: Response): Promise<any> => {
   const { id } = req.body;
 
   if (!id) {
@@ -91,4 +108,4 @@ const deleteNote = asyncHandler(async (req, res) => {
   res.json(replay);
 });
 
-module.exports = { getAllNotes, createNewNote, updateNote, deleteNote };
+export default { getAllNotes, createNote, updateNote, deleteNote };

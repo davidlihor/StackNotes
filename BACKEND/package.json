@@ -1,16 +1,19 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "techNotes MERN Project",
+  "description": "StackNotes MERN Project",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "nodemon dist/server.js",
+    "dev": "concurrently \"tsc --watch\" \"nodemon dist/server.js\"",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongoose-sequence": "^3.0.11",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -25,6 +28,17 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/date-fns": "^2.5.3",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^22.13.14",
+    "@types/uuid": "^10.0.0",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.8.2"
   }
 }

@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-const AutoIncrement = require("mongoose-sequence")(mongoose);
+import mongoose, { model, Schema } from 'mongoose';
+import mongooseSequence from 'mongoose-sequence';
+import { INote } from '../types/types';
 
-const noteSchema = new mongoose.Schema(
+const noteSchema = new Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -26,10 +27,12 @@ const noteSchema = new mongoose.Schema(
   }
 );
 
-noteSchema.plugin(AutoIncrement, {
+// @ts-ignore
+noteSchema.plugin(mongooseSequence(mongoose), {
   inc_field: "ticket",
   id: "ticketNums",
   start_seq: 500,
 });
 
-module.exports = mongoose.model("Note", noteSchema);
+const Note = model<INote>("Note", noteSchema);
+export default Note;

@@ -16,7 +16,9 @@ COPY --from=builder --chown=nginxuser:nginxgroup /app/dist /usr/share/nginx/html
 COPY FRONTEND/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p /var/run /var/cache/nginx && chown nginxuser:nginxgroup /var/run /var/cache/nginx
-USER nginxuser
 
+COPY FRONTEND/env.sh /docker-entrypoint.d/env.sh
+RUN chmod +x /docker-entrypoint.d/env.sh
+
+USER nginxuser
 EXPOSE 80
-CMD [ "nginx", "-g", "daemon off;" ]

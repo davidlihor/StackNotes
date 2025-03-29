@@ -11,8 +11,8 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: #333;
-  color: white;
+  background-color: #1b1b1b;
+  color: rgb(150, 150, 150);
   display: grid;
   place-content: center;
   padding: 1rem;

@@ -18,13 +18,13 @@ const Welcome = () => {
 
       <p className="link__p">
         <Link className="link" to="/dash/notes">
-          ➡️ View techNotes
+          ➡️ View StackNotes
         </Link>
       </p>
 
       <p className="link__p">
         <Link className="link" to="/dash/notes/new">
-          ➡️ Add New techNotes
+          ➡️ Add New StackNotes
         </Link>
       </p>
 

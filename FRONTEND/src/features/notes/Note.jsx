@@ -29,7 +29,7 @@ const Note = ({ noteId }) => {
         <td className="table__cell note__updated">{note.updatedAt}</td>
         <td className="table__cell note__title">{note.title}</td>
         <td className="table__cell note__text">{note.text}</td>
-        <td className="table__cell note__username">{note.user}</td>
+        <td className="table__cell note__username">{note.user?.username}</td>
 
         <td className="table__cell">
           <button className="icon-button table__button" onClick={handleEdit}>

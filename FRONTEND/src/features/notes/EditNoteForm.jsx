@@ -21,7 +21,7 @@ const EditNoteForm = ({ note, users }) => {
 
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(note.user);
+  const [user, setUser] = useState(note.user?._id);
   const [title, setTitle] = useState(note.title);
   const [text, setText] = useState(note.text);
   const [completed, setCompleted] = useState(note.completed);
