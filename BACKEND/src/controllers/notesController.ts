@@ -16,7 +16,7 @@ const getAllNotes = asyncHandler(async (req: Request, res: Response): Promise<an
   if (userHasAllowedRole) {
     notes = await Note.find().populate("user", "username").lean();
   } else {
-    notes = await Note.find({ "user": req.id }).populate("user", "username").lean();
+    notes = await Note.find({ user: req.id }).populate("user", "username").lean();
   }
 
   // If no notes

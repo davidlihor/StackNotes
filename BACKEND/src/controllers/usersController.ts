@@ -123,6 +123,11 @@ const deleteUser = asyncHandler(async (req: Request, res: Response): Promise<any
 
   const user = await User.findById(id).exec();
 
+  if (user?.roles.includes("Admin")) {
+    const adminUsers = await User.countDocuments({ roles: "Admin" }).exec();
+    if (adminUsers == 1) return res.status(400).json({ message: "At least one admin must remain" })
+  }
+
   if (!user) {
     return res.status(400).json({ message: "User not found" });
   }

@@ -1,6 +1,6 @@
 import mongoose, { model, Schema } from 'mongoose';
 import mongooseSequence from 'mongoose-sequence';
-import { INote } from '../types/types';
+import { INote } from '../types';
 
 const noteSchema = new Schema(
   {
