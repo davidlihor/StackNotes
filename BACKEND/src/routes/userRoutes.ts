@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
-import usersController from "../controllers/usersController.js";
-import verifyJWT from "../middleware/verifyJWT.js";
-import verifyRoles from "../middleware/verifyRoles.js";
-import ROLES_LIST from "../config/roles_list.js";
+import usersController from "../controllers/usersController";
+import verifyJWT from "../middleware/verifyJWT";
+import verifyRoles from "../middleware/verifyRoles";
+import ROLES_LIST from "../config/roles_list";
 
 router.use(verifyJWT);
 

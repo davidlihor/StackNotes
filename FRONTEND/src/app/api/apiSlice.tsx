@@ -2,8 +2,12 @@ import { BaseQueryApi, createApi, FetchArgs, fetchBaseQuery } from "@reduxjs/too
 import { setCredentials } from "../../features/auth/authSlice";
 import { RootState } from "../store";
 
+const baseUrl = import.meta.env.DEV
+  ? import.meta.env.VITE_API_URL
+  : window.ENV.STACKNOTES_API_URL;
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_URL,
+  baseUrl: baseUrl,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState;

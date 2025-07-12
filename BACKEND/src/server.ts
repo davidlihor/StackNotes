@@ -1,26 +1,25 @@
 import express from "express";
 import path from "path";
 import cors from "cors";
-import { logger, logEvents } from "./middleware/logger.js";
-import errorHandler from "./middleware/errorHandler.js";
+import { logger, logEvents } from "./middleware/logger";
+import errorHandler from "./middleware/errorHandler";
 import cookieParser from "cookie-parser";
-import corsOptions from "./config/corsOptions.js";
-import connectDB from "./config/dbConn.js";
-import seedDB from "./config/dbSeed.js";
+import corsOptions from "./config/corsOptions";
+import connectDB from "./config/dbConn";
+import seedDB from "./config/dbSeed";
 import mongoose from "mongoose";
 
-import rootRoutes from './routes/root.js';
-import authRoutes from './routes/authRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import noteRoutes from './routes/noteRoutes.js';
+import rootRoutes from './routes/root';
+import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
+import noteRoutes from './routes/noteRoutes';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3500;
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-console.log(process.env.NODE_ENV);
+console.log(`Hosting environment: ${process.env.NODE_ENVIRONMENT}`);
 
 connectDB();
 seedDB();
@@ -57,7 +56,7 @@ app.use(errorHandler);
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(`Now listening on port: ${PORT}`));
 });
 
 mongoose.connection.on("error", (err) => {

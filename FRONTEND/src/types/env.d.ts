@@ -7,3 +7,9 @@ interface ImportMetaEnv {
 interface ImportMeta {
     readonly env: ImportMetaEnv
 }
+
+interface Window {
+  ENV: {
+    STACKNOTES_API_URL: string;
+  };
+}

@@ -1,5 +1,5 @@
-import User from "../models/User.js";
-import Note from "../models/Note.js";
+import User from "../models/User";
+import Note from "../models/Note";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
@@ -91,6 +91,13 @@ const updateUser = asyncHandler(async (req: Request, res: Response): Promise<any
     return res.status(409).json({ message: "Duplicate username" });
   }
 
+  if (user?.roles.includes("Admin") && user.active) {
+    const activeAdmins = await User.countDocuments({ roles: "Admin", active: true }).exec();
+    
+    if (activeAdmins === 1 && (!roles.includes("Admin") || !active))
+      return res.status(400).json({ message: "At least one admin must remain" })
+    }
+
   user.username = username;
   user.roles = roles;
   user.active = active;
@@ -123,9 +130,9 @@ const deleteUser = asyncHandler(async (req: Request, res: Response): Promise<any
 
   const user = await User.findById(id).exec();
 
-  if (user?.roles.includes("Admin")) {
-    const adminUsers = await User.countDocuments({ roles: "Admin" }).exec();
-    if (adminUsers == 1) return res.status(400).json({ message: "At least one admin must remain" })
+  if (user?.roles.includes("Admin") && user.active) {
+    const activeAdmins = await User.countDocuments({ roles: "Admin", active: true }).exec();
+    if (activeAdmins === 1) return res.status(400).json({ message: "Cannot delete the last active admin" })
   }
 
   if (!user) {

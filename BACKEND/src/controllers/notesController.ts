@@ -1,5 +1,5 @@
-import Note from "../models/Note.js";
-import ROLES_LIST from "../config/roles_list.js";
+import Note from "../models/Note";
+import ROLES_LIST from "../config/roles_list";
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 

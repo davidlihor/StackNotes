@@ -1,9 +1,9 @@
-import User from "../models/User.js";
+import User from "../models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-import { RefreshTokenPayload } from "../types/index.js";
+import { RefreshTokenPayload } from "../types/index";
 
 // @desc Login
 // @route POST /auth

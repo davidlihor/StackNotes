@@ -1,0 +1,3 @@
+window.ENV = {
+  STACKNOTES_API_URL: "STACKNOTES_API_URL"
+};

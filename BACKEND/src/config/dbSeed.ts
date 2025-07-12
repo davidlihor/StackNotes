@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../models/User";
 import bcrypt from "bcrypt";
 
 const seedDB = async () => {
