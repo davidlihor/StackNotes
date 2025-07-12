@@ -14,9 +14,9 @@ jobs:
     strategy:
       matrix:
         service:
-          - name: "daviddev24/stacknotes-app"
+          - name: "davidlihor/stacknotes-app"
             path: "FRONTEND"
-          - name: "daviddev24/stacknotes-svc"
+          - name: "davidlihor/stacknotes-svc"
             path: "BACKEND"
 
     steps:
