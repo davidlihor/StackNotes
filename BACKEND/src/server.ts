@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import { logger, logEvents } from "./middleware/logger";
+import { metricsMiddleware, metricsRouteHandler } from "./middleware/metrics";
 import errorHandler from "./middleware/errorHandler";
 import cookieParser from "cookie-parser";
 import corsOptions from "./config/corsOptions";
@@ -23,6 +24,10 @@ console.log(`Hosting environment: ${process.env.NODE_ENVIRONMENT}`);
 
 connectDB();
 seedDB();
+
+app.use(metricsMiddleware);
+
+app.get("/metrics", metricsRouteHandler);
 
 app.use(logger);
 
@@ -56,7 +61,10 @@ app.use(errorHandler);
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
-  app.listen(PORT, () => console.log(`Now listening on port: ${PORT}`));
+  app.listen(PORT, () => {
+    console.log(`Now listening on: http://[::]:${PORT}`)
+    console.log(`Metrics are available at http://[::]:${PORT}/metrics`);
+  });
 });
 
 mongoose.connection.on("error", (err) => {
