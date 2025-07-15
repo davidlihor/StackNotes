@@ -20,9 +20,6 @@ RUN chmod +x /start.sh
 
 RUN mkdir -p /var/run /var/cache/nginx && chown nginxuser:nginxgroup /var/run /var/cache/nginx
 
-# COPY FRONTEND/env.sh /docker-entrypoint.d/env.sh
-# RUN chmod +x /docker-entrypoint.d/env.sh
-
 USER nginxuser
 EXPOSE 80
 
