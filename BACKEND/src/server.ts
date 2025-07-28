@@ -6,7 +6,7 @@ import { metricsMiddleware, metricsRouteHandler } from "./middleware/metrics";
 import errorHandler from "./middleware/errorHandler";
 import cookieParser from "cookie-parser";
 import corsOptions from "./config/corsOptions";
-import connectDB from "./config/dbConn";
+import connectWithRetry from "./config/dbConn";
 import seedDB from "./config/dbSeed";
 import mongoose from "mongoose";
 
@@ -22,55 +22,58 @@ const PORT = process.env.PORT || 3500;
 
 console.log(`Hosting environment: ${process.env.NODE_ENVIRONMENT}`);
 
-connectDB();
-seedDB();
+(async () => {
+  const connected = await connectWithRetry(1, 3000);
 
-app.use(metricsMiddleware);
-
-app.get("/metrics", metricsRouteHandler);
-
-app.use(logger);
-
-app.use(cors(corsOptions));
-
-app.use(express.json());
-
-app.use(cookieParser());
-
-app.use(express.urlencoded({ extended: false }));
-
-app.use("/", express.static(path.join(__dirname, "..", "public")));
-
-app.use("/", rootRoutes);
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/notes", noteRoutes);
-
-app.all("*", (req, res) => {
-  res.status(404);
-  if (req.accepts("html")) {
-    res.sendFile(path.join(__dirname, "..", "views", "404.html"));
-  } else if (req.accepts("json")) {
-    res.json({ message: "404 Not Found" });
-  } else {
-    res.type("txt").send("404 Not Found");
+  if (!connected) {
+    console.error("Could not connect to MongoDB. Exiting.");
+    process.exit(1);
   }
-});
-
-app.use(errorHandler);
-
-mongoose.connection.once("open", () => {
+  
   console.log("Connected to MongoDB");
+
+  mongoose.connection.on("error", (err) => {
+    console.log(err);
+    logEvents(
+      `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
+      "mongoErrLog.log"
+    );
+  });
+
+  app.use(metricsMiddleware);
+
+  app.get("/metrics", metricsRouteHandler);
+
+  app.use(logger);
+  app.use(cors(corsOptions));
+  app.use(express.json());
+  app.use(cookieParser());
+  app.use(express.urlencoded({ extended: false }));
+
+  app.use("/", express.static(path.join(__dirname, "..", "public")));
+
+  app.use("/", rootRoutes);
+  app.use("/auth", authRoutes);
+  app.use("/users", userRoutes);
+  app.use("/notes", noteRoutes);
+
+  app.all("*", (req, res) => {
+    res.status(404);
+    if (req.accepts("html")) {
+      res.sendFile(path.join(__dirname, "..", "views", "404.html"));
+    } else if (req.accepts("json")) {
+      res.json({ message: "404 Not Found" });
+    } else {
+      res.type("txt").send("404 Not Found");
+    }
+  });
+
+  app.use(errorHandler);
+  
   app.listen(PORT, () => {
     console.log(`Now listening on: http://[::]:${PORT}`)
     console.log(`Metrics are available at http://[::]:${PORT}/metrics`);
   });
-});
 
-mongoose.connection.on("error", (err) => {
-  console.log(err);
-  logEvents(
-    `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
-    "mongoErrLog.log"
-  );
-});
+  await seedDB();
+})();
