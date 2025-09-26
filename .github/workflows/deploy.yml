@@ -34,13 +34,13 @@ jobs:
         with:
           fetch-depth: 2
 
-      # - name: Check Changes
-      #   run: |
-      #     if git diff --quiet HEAD^ HEAD -- ${{matrix.service.path}}; then
-      #       echo "continue=false" >> $GITHUB_ENV
-      #     else 
-      #       echo "continue=true" >> $GITHUB_ENV
-      #     fi
+      - name: Check Changes
+        run: |
+          if git diff --quiet HEAD^ HEAD -- ${{matrix.service.path}}; then
+            echo "continue=false" >> $GITHUB_ENV
+          else 
+            echo "continue=true" >> $GITHUB_ENV
+          fi
 
       - name: Install Node
         if: env.continue == 'true'
@@ -93,18 +93,18 @@ jobs:
             path: "BACKEND"
 
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v4
-      #   with:
-      #     fetch-depth: 2
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-      # - name: Check Changes
-      #   run: |
-      #     if git diff --quiet HEAD^ HEAD -- ${{matrix.service.path}}; then
-      #       echo "continue=false" >> $GITHUB_ENV
-      #     else 
-      #       echo "continue=true" >> $GITHUB_ENV
-      #     fi
+      - name: Check Changes
+        run: |
+          if git diff --quiet HEAD^ HEAD -- ${{matrix.service.path}}; then
+            echo "continue=false" >> $GITHUB_ENV
+          else 
+            echo "continue=true" >> $GITHUB_ENV
+          fi
 
       - name: Set up Docker Buildx
         if: env.continue == 'true'
