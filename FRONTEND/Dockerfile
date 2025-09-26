@@ -7,7 +7,7 @@ RUN npm install
 COPY FRONTEND ./
 RUN npm run build
 
- 
+
 FROM nginx:alpine
 RUN addgroup --system --gid 1001 nginxgroup
 RUN adduser --system --uid 1001 nginxuser

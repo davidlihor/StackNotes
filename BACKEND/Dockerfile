@@ -10,7 +10,7 @@ COPY BACKEND .
 
 RUN npm install -g typescript
 RUN tsc --project tsconfig.json
-
+ 
 FROM node:latest AS runner
 WORKDIR /app
 ENV NODE_ENV Development
