@@ -77,10 +77,23 @@ jobs:
           tar -zxvf gitleaks_8.20.1_linux_x64.tar.gz
           sudo mv gitleaks /usr/local/bin/
 
-      - name: Run Gitleaks
+      - name: Run Gitleaks (safe print)
         if: env.continue == 'true'
-        working-directory: ${{ matrix.service.path }}
-        run: gitleaks detect --source . --exit-code 1
+        run: |
+          gitleaks detect \
+            --source . \
+            --report-format=json \
+            --report-path=gitleaks-report.json \
+            --exit-code 0 \
+            --redact=100
+
+          if grep -q '"RuleID"' gitleaks-report.json; then
+            echo "Gitleaks found potential leaks:"
+            jq '.[] | {RuleID, File, StartLine}' gitleaks-report.json
+            exit 1
+          else
+            echo "No leaks found"
+          fi
 
   docker-build-push:
     needs: security-checks
