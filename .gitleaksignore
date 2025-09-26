@@ -1,0 +1,3 @@
+[[rules]]
+description = "Ignore env_file path for backend"
+regex = '''env_file:\s+-\s+BACKEND/\.env\.docker'''
