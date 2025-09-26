@@ -19,7 +19,7 @@ jobs:
     name: Security Checks
     runs-on: ubuntu-latest
     env:
-      continue: "true"
+      continue: "false"
     strategy:
       matrix:
         service:
@@ -34,11 +34,11 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Check Changes
+      - name: Check if source changed
         run: |
-          if git diff --quiet HEAD^ HEAD -- ${{matrix.service.path}}; then
+          if git diff --quiet HEAD^ HEAD -- ${{ matrix.service.path }}/src; then
             echo "continue=false" >> $GITHUB_ENV
-          else 
+          else
             echo "continue=true" >> $GITHUB_ENV
           fi
 
@@ -83,7 +83,7 @@ jobs:
     name: Docker Build & Push
     runs-on: ubuntu-latest
     env:
-      continue: "true"
+      continue: "false"
     strategy:
       matrix:
         service:
@@ -96,7 +96,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Check Changes
         run: |
