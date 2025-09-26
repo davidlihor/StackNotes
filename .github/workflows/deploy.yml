@@ -86,8 +86,7 @@ jobs:
             --report-path=gitleaks-report.json \
             --exit-code 0 \
             --redact=100 \
-            --no-git \
-            --config .gitleaks.toml
+            --no-git
 
           if grep -q '"RuleID"' gitleaks-report.json; then
             echo "Gitleaks found potential leaks:"
