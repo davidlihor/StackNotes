@@ -13,11 +13,10 @@ RUN addgroup --system --gid 1001 nginxgroup
 RUN adduser --system --uid 1001 nginxuser
 
 COPY --from=builder --chown=nginxuser:nginxgroup /app/dist /usr/share/nginx/html
-
 COPY FRONTEND/nginx.conf /etc/nginx/conf.d/default.conf
 COPY FRONTEND/start.sh /start.sh
-RUN chmod +x /start.sh
 
+RUN chmod +x /start.sh
 RUN mkdir -p /var/run /var/cache/nginx && chown nginxuser:nginxgroup /var/run /var/cache/nginx
 
 USER nginxuser
