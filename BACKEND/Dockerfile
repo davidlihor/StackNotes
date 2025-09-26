@@ -1,10 +1,12 @@
 FROM node:latest AS deps
 WORKDIR /app
+
 COPY BACKEND/package*.json .
 RUN npm install
 
 FROM node:latest AS builder
 WORKDIR /app
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY BACKEND .
 
