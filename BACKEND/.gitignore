@@ -5,10 +5,10 @@
 
 node_modules
 logs
-.env
 dist
 
 # dotenv files
+**/.env.*
 .env
 
 # User-specific files

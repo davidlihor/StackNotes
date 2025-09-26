@@ -56,7 +56,7 @@ Create a `.env` file in the `BACKEND/` directory with the following content:
 
 ```
 NODE_ENVIRONMENT=Development
-DATABASE_URI=mongodb://root:mongopw@mongodb:27017
+DATABASE_URI=mongodb://root:<your-database-password>@localhost:27017
 ACCESS_TOKEN_SECRET=<your-access-token-secret>
 REFRESH_TOKEN_SECRET=<your-refresh-token-secret>
 CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173

@@ -7,9 +7,9 @@ services:
     command: npm run start
     environment:
       - NODE_ENVIRONMENT=Development
-      - DATABASE_URI=mongodb://root:mongopw@mongodb:27017
-      - ACCESS_TOKEN_SECRET=b94802f4675a1c374df3d61ec80bec89327ec9ec206b4d669524f543d04d46e7627e683d2674d09de0b2df5614c14fd9490bca954a5716c6c9b1327c6595a3dc
-      - REFRESH_TOKEN_SECRET=9106c739cfbdf45f39d825beadc09ba66a137b9b04007760570f8888f6fc31346f26cb416f05832670b842eb951129f1525e8c466487e55780576bf0e82e07a1
+      - DATABASE_URI=mongodb://root:<your-database-password>@mongodb:27017
+      - ACCESS_TOKEN_SECRET=<your-access-token-secret>
+      - REFRESH_TOKEN_SECRET=<your-refresh-token-secret>
       - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
     ports:
       - 3500:3500
@@ -40,7 +40,7 @@ services:
     image: mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=mongopw
+      - MONGO_INITDB_ROOT_PASSWORD=<your-database-password>
     ports:
       - 27017:27017
     volumes:
