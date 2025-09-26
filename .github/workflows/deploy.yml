@@ -59,7 +59,7 @@ jobs:
 
       - name: SAST (Semgrep)
         if: env.continue == 'true'
-        run: semgrep --config p/ci --include="${{ matrix.service.path }}/**/*.{ts,tsx,js,jsx}"
+        run: semgrep --config p/ci --include="${{ matrix.service.path }}/src/**/*.{ts,tsx,js,jsx}" --exclude='**/node_modules/**' --exclude='**/dist/**' --exclude='**/build/**'
 
       - name: SCA (npm audit)
         if: env.continue == 'true'
