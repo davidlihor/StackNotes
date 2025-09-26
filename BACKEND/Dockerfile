@@ -15,7 +15,6 @@ RUN tsc --project tsconfig.json
 
 FROM node:latest AS runner
 WORKDIR /app
-
 ENV NODE_ENV Development
 
 RUN addgroup --system --gid 1001 nodejs
