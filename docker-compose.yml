@@ -6,8 +6,8 @@ services:
       dockerfile: BACKEND/Dockerfile
     command: npm run start
     environment:
-      - NODE_ENVIRONMENT=Development
-      - DATABASE_URI=mongodb://root:ENV_PASSWORD_HERE@mongodb:27017
+      - NODE_ENVIRONMENT=Development 
+      - DATABASE_URI=mongodb://root:<your-database-password>@mongodb:27017
       - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
     env_file:
       - BACKEND/.env.docker
