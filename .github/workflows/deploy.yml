@@ -36,7 +36,7 @@ jobs:
 
       - name: Check if source changed
         run: |
-          if git diff --quiet HEAD^ HEAD -- ${{ matrix.service.path }}/src; then
+          if git diff --quiet HEAD^ HEAD -- ${{ matrix.service.path }}; then
             echo "continue=false" >> $GITHUB_ENV
           else
             echo "continue=true" >> $GITHUB_ENV
@@ -59,7 +59,7 @@ jobs:
 
       - name: SAST (Semgrep)
         if: env.continue == 'true'
-        run: semgrep --config p/ci --include="${{ matrix.service.path }}/src/**/*.{ts,tsx,js,jsx}" --exclude='**/node_modules/**' --exclude='**/dist/**' --exclude='**/build/**'
+        run: semgrep --config p/ci --include="${{ matrix.service.path }}/**/*.{ts,tsx,js,jsx}" --exclude='**/node_modules/**' --exclude='**/dist/**' --exclude='**/build/**'
 
       - name: SCA (npm audit)
         if: env.continue == 'true'
