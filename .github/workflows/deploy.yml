@@ -59,10 +59,11 @@ jobs:
 
       - name: SAST (Semgrep)
         if: env.continue == 'true'
-        run: semgrep --config p/ci ${{ matrix.service.path }} \
-          --exclude='**/node_modules/**' \
-          --exclude='**/dist/**' \
-          --exclude='**/build/**'
+        run: |
+          semgrep --config p/ci FRONTEND \
+            --exclude='**/node_modules/**' \
+            --exclude='**/dist/**' \
+            --exclude='**/build/**'
 
       - name: SCA (npm audit)
         if: env.continue == 'true'
